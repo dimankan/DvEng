@@ -16,14 +16,29 @@ namespace DvEng
         private Random random = new Random();
 
         List<Word> words = new List<Word>();
-        bool[] emptyButton1 = new bool[5];
-        bool[] emptyButton2 = new bool[5];
+        bool[] emptyValueButtons = new bool[5];
+        bool[] emptyTranslateButtons = new bool[5];
 
-        public bool isEmptyMore3
+        public bool IsEmptyValueMore3
         {
             get
             {
-                return emptyButton1.Where(x => x == false).Count() >= 3;
+                return emptyValueButtons.Where(x => x == false).Count() >= 3;
+            }
+        }
+
+        public bool IsAllFillValueButtons
+        {
+            get
+            {
+                return emptyValueButtons.Where(x => x == false).Count() == 0;
+            }
+        }
+        public bool IsAllFillTranslateButtons
+        {
+            get
+            {
+                return emptyTranslateButtons.Where(x => x == false).Count() == 0;
             }
         }
 
@@ -58,42 +73,27 @@ namespace DvEng
 
         private void FillWordButtons()
         {
-            if (string.IsNullOrEmpty(btC1R1.Text))
-                emptyButton1[0] = false;
-            if (string.IsNullOrEmpty(btC1R2.Text))
-                emptyButton1[1] = false;
-            if (string.IsNullOrEmpty(btC1R3.Text))
-                emptyButton1[2] = false;
-            if (string.IsNullOrEmpty(btC1R4.Text))
-                emptyButton1[3] = false;
-            if (string.IsNullOrEmpty(btC1R5.Text))
-                emptyButton1[4] = false;
+            CheckEmptyButtons();
 
-            if (string.IsNullOrEmpty(btC2R1.Text))
-                emptyButton2[0] = false;
-            if (string.IsNullOrEmpty(btC2R2.Text))
-                emptyButton2[1] = false;
-            if (string.IsNullOrEmpty(btC2R3.Text))
-                emptyButton2[2] = false;
-            if (string.IsNullOrEmpty(btC2R4.Text))
-                emptyButton2[3] = false;
-            if (string.IsNullOrEmpty(btC2R5.Text))
-                emptyButton2[4] = false;
+            if (IsAllFillValueButtons)
+                return;
+            if (IsAllFillTranslateButtons)
+                return;
 
-            bool isEmptyMore3 = emptyButton1.Where(x => x == false).Count() >= 3;
 
-            if (!isEmptyMore3)
+            if (!IsEmptyValueMore3)
                 return;
 
             List<int> emptyButtonsC1 = new List<int>();
-            List<int> emptyButtonsC2 = new List<int>();
 
-            for (int i = 0; i < emptyButton1.Length; i++)
-                if (!emptyButton1[i])
+            for (int i = 0; i < emptyValueButtons.Length; i++)
+                if (!emptyValueButtons[i])
                     emptyButtonsC1.Add(i);
 
-            for (int i = 0; i < emptyButton2.Length; i++)
-                if (!emptyButton2[i])
+            List<int> emptyButtonsC2 = new List<int>();
+            
+            for (int i = 0; i < emptyTranslateButtons.Length; i++)
+                if (!emptyTranslateButtons[i])
                     emptyButtonsC2.Add(i);
 
             int emptyCount = emptyButtonsC1.Count();
@@ -101,7 +101,6 @@ namespace DvEng
             for (int i = 0; i < emptyCount; i++)
             {
                 var randomWord = GetRandomWord();
-
 
                 int randomButton1Index = random.Next(emptyButtonsC1.Count);
                 int value = emptyButtonsC1[randomButton1Index];
@@ -126,7 +125,7 @@ namespace DvEng
                         break;
                 }
 
-                emptyButton1[value] = true;
+                emptyValueButtons[value] = true;
 
                 int randomButton2Index = random.Next(emptyButtonsC2.Count);
                 int value2 = emptyButtonsC2[randomButton2Index];
@@ -151,11 +150,34 @@ namespace DvEng
                         break;
                 }
 
-                emptyButton1[value2] = true;
-
-                // textBox1.Text += value + " ";
+                emptyTranslateButtons[value2] = true;
             }
 
+        }
+
+        private void CheckEmptyButtons()
+        {
+            if (string.IsNullOrEmpty(btC1R1.Text))
+                emptyValueButtons[0] = false;
+            if (string.IsNullOrEmpty(btC1R2.Text))
+                emptyValueButtons[1] = false;
+            if (string.IsNullOrEmpty(btC1R3.Text))
+                emptyValueButtons[2] = false;
+            if (string.IsNullOrEmpty(btC1R4.Text))
+                emptyValueButtons[3] = false;
+            if (string.IsNullOrEmpty(btC1R5.Text))
+                emptyValueButtons[4] = false;
+
+            if (string.IsNullOrEmpty(btC2R1.Text))
+                emptyTranslateButtons[0] = false;
+            if (string.IsNullOrEmpty(btC2R2.Text))
+                emptyTranslateButtons[1] = false;
+            if (string.IsNullOrEmpty(btC2R3.Text))
+                emptyTranslateButtons[2] = false;
+            if (string.IsNullOrEmpty(btC2R4.Text))
+                emptyTranslateButtons[3] = false;
+            if (string.IsNullOrEmpty(btC2R5.Text))
+                emptyTranslateButtons[4] = false;
         }
 
         private Word GetRandomWord()
@@ -171,48 +193,59 @@ namespace DvEng
 
             textBox1.Text = randomWord;
 
+
             FillWordButtons();
         }
 
         private void btC1R1_Click(object sender, EventArgs e)
         {
-            emptyButton1[0] = false;
-            btC1R1.Text = String.Empty;
-            FillWordButtons();
+            //emptyButton1[0] = false;
+            //btC1R1.Text = String.Empty;
+            //btC1R1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            Button clickedButton = (Button)sender;
+            clickedButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
 
+
+            var name = Controls[$"{Name}"];
+            //var zzz = Controls.To
+
+            FillWordButtons();
         }
 
         private void btC1R2_Click(object sender, EventArgs e)
         {
-            emptyButton1[1] = false;
+            //emptyButton1[1] = false;
             btC1R2.Text = String.Empty;
-            FillWordButtons();
+            btC1R2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
 
+            FillWordButtons();
         }
 
         private void btC1R3_Click(object sender, EventArgs e)
         {
-            emptyButton1[2] = false;
+            //emptyButton1[2] = false;
             btC1R3.Text = String.Empty;
-            FillWordButtons();
+            btC1R3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
 
+            FillWordButtons();
         }
 
         private void btC1R4_Click(object sender, EventArgs e)
         {
-            emptyButton1[3] = false;
+            //emptyButton1[3] = false;
             btC1R4.Text = String.Empty;
-            FillWordButtons();
+            btC1R4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
 
+            FillWordButtons();
         }
 
         private void btC1R5_Click(object sender, EventArgs e)
         {
-            emptyButton1[4] = false;
+            //emptyButton1[4] = false;
             btC1R5.Text = String.Empty;
-            
-            FillWordButtons();
+            btC1R5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
 
+            FillWordButtons();
         }
     }
 }

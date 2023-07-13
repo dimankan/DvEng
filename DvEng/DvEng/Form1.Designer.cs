@@ -44,88 +44,98 @@
             // 
             // btC1R1
             // 
+            btC1R1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC1R1.Location = new System.Drawing.Point(32, 54);
             btC1R1.Name = "btC1R1";
             btC1R1.Size = new System.Drawing.Size(301, 84);
             btC1R1.TabIndex = 0;
-            btC1R1.UseVisualStyleBackColor = true;
+            btC1R1.UseVisualStyleBackColor = false;
             btC1R1.Click += btC1R1_Click;
             // 
             // btC1R2
             // 
+            btC1R2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC1R2.Location = new System.Drawing.Point(32, 165);
             btC1R2.Name = "btC1R2";
             btC1R2.Size = new System.Drawing.Size(301, 84);
             btC1R2.TabIndex = 0;
-            btC1R2.UseVisualStyleBackColor = true;
+            btC1R2.UseVisualStyleBackColor = false;
             btC1R2.Click += btC1R2_Click;
             // 
             // btC1R3
             // 
+            btC1R3.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC1R3.Location = new System.Drawing.Point(32, 274);
             btC1R3.Name = "btC1R3";
             btC1R3.Size = new System.Drawing.Size(301, 84);
             btC1R3.TabIndex = 0;
-            btC1R3.UseVisualStyleBackColor = true;
+            btC1R3.UseVisualStyleBackColor = false;
             btC1R3.Click += btC1R3_Click;
             // 
             // btC1R4
             // 
+            btC1R4.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC1R4.Location = new System.Drawing.Point(32, 391);
             btC1R4.Name = "btC1R4";
             btC1R4.Size = new System.Drawing.Size(301, 84);
             btC1R4.TabIndex = 0;
-            btC1R4.UseVisualStyleBackColor = true;
+            btC1R4.UseVisualStyleBackColor = false;
             btC1R4.Click += btC1R4_Click;
             // 
             // btC1R5
             // 
+            btC1R5.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC1R5.Location = new System.Drawing.Point(32, 501);
             btC1R5.Name = "btC1R5";
             btC1R5.Size = new System.Drawing.Size(301, 84);
             btC1R5.TabIndex = 0;
-            btC1R5.UseVisualStyleBackColor = true;
+            btC1R5.UseVisualStyleBackColor = false;
             btC1R5.Click += btC1R5_Click;
             // 
             // btC2R1
             // 
+            btC2R1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC2R1.Location = new System.Drawing.Point(406, 54);
             btC2R1.Name = "btC2R1";
             btC2R1.Size = new System.Drawing.Size(301, 84);
             btC2R1.TabIndex = 0;
-            btC2R1.UseVisualStyleBackColor = true;
+            btC2R1.UseVisualStyleBackColor = false;
             // 
             // btC2R2
             // 
+            btC2R2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC2R2.Location = new System.Drawing.Point(406, 165);
             btC2R2.Name = "btC2R2";
             btC2R2.Size = new System.Drawing.Size(301, 84);
             btC2R2.TabIndex = 0;
-            btC2R2.UseVisualStyleBackColor = true;
+            btC2R2.UseVisualStyleBackColor = false;
             // 
             // btC2R3
             // 
+            btC2R3.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC2R3.Location = new System.Drawing.Point(406, 274);
             btC2R3.Name = "btC2R3";
             btC2R3.Size = new System.Drawing.Size(301, 84);
             btC2R3.TabIndex = 0;
-            btC2R3.UseVisualStyleBackColor = true;
+            btC2R3.UseVisualStyleBackColor = false;
             // 
             // btC2R4
             // 
+            btC2R4.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC2R4.Location = new System.Drawing.Point(406, 391);
             btC2R4.Name = "btC2R4";
             btC2R4.Size = new System.Drawing.Size(301, 84);
             btC2R4.TabIndex = 0;
-            btC2R4.UseVisualStyleBackColor = true;
+            btC2R4.UseVisualStyleBackColor = false;
             // 
             // btC2R5
             // 
+            btC2R5.BackColor = System.Drawing.SystemColors.ControlLightLight;
             btC2R5.Location = new System.Drawing.Point(406, 501);
             btC2R5.Name = "btC2R5";
             btC2R5.Size = new System.Drawing.Size(301, 84);
             btC2R5.TabIndex = 0;
-            btC2R5.UseVisualStyleBackColor = true;
+            btC2R5.UseVisualStyleBackColor = false;
             // 
             // button1
             // 
