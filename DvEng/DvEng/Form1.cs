@@ -11,36 +11,18 @@ using System.Windows.Forms;
 
 namespace DvEng
 {
+
     public partial class Form1 : Form
     {
-        private Random random = new Random();
-
         List<Word> words = new List<Word>();
-        bool[] emptyValueButtons = new bool[5];
-        bool[] emptyTranslateButtons = new bool[5];
 
-        public bool IsEmptyValueMore3
-        {
-            get
-            {
-                return emptyValueButtons.Where(x => x == false).Count() >= 3;
-            }
-        }
+        Model model = new Model();
 
-        public bool IsAllFillValueButtons
-        {
-            get
-            {
-                return emptyValueButtons.Where(x => x == false).Count() == 0;
-            }
-        }
-        public bool IsAllFillTranslateButtons
-        {
-            get
-            {
-                return emptyTranslateButtons.Where(x => x == false).Count() == 0;
-            }
-        }
+        Button[] buttonsC1 = new Button[5];
+        Button[] buttonsC2 = new Button[5];
+
+        Button selectedButtonC1 = null;
+        Button selectedButtonC2 = null;
 
 
         public Form1()
@@ -66,186 +48,132 @@ namespace DvEng
             words.Add(new Word("go", "идти, ехать"));
             words.Add(new Word("went", "(у)шел, (у)ехал"));
 
-            FillWordButtons();
+            model.SetWords(words);
 
+            buttonsC1[0] = btC1R1;
+            buttonsC1[1] = btC1R2;
+            buttonsC1[2] = btC1R3;
+            buttonsC1[3] = btC1R4;
+            buttonsC1[4] = btC1R5;
 
-        }
-
-        private void FillWordButtons()
-        {
-            CheckEmptyButtons();
-
-            if (IsAllFillValueButtons)
-                return;
-            if (IsAllFillTranslateButtons)
-                return;
-
-
-            if (!IsEmptyValueMore3)
-                return;
-
-            List<int> emptyButtonsC1 = new List<int>();
-
-            for (int i = 0; i < emptyValueButtons.Length; i++)
-                if (!emptyValueButtons[i])
-                    emptyButtonsC1.Add(i);
-
-            List<int> emptyButtonsC2 = new List<int>();
+            buttonsC2[0] = btC2R1;
+            buttonsC2[1] = btC2R2;
+            buttonsC2[2] = btC2R3;
+            buttonsC2[3] = btC2R4;
+            buttonsC2[4] = btC2R5;
             
-            for (int i = 0; i < emptyTranslateButtons.Length; i++)
-                if (!emptyTranslateButtons[i])
-                    emptyButtonsC2.Add(i);
+            UpdateButtons();
+        }
 
-            int emptyCount = emptyButtonsC1.Count();
+        private void UpdateButtons()
+        {
+            model = model.GetWords();
 
-            for (int i = 0; i < emptyCount; i++)
+            btC1R1.Text = model.Values[0];
+            btC1R2.Text = model.Values[1];
+            btC1R3.Text = model.Values[2];
+            btC1R4.Text = model.Values[3];
+            btC1R5.Text = model.Values[4];
+            btC2R1.Text = model.Translates[0];
+            btC2R2.Text = model.Translates[1];
+            btC2R3.Text = model.Translates[2];
+            btC2R4.Text = model.Translates[3];
+            btC2R5.Text = model.Translates[4];
+
+            
+
+            for (int i = 0; i < buttonsC1.Length; i++)
             {
-                var randomWord = GetRandomWord();
+                buttonsC1[i].BackColor = SystemColors.ControlLightLight;
+                buttonsC2[i].BackColor = SystemColors.ControlLightLight;
 
-                int randomButton1Index = random.Next(emptyButtonsC1.Count);
-                int value = emptyButtonsC1[randomButton1Index];
-                emptyButtonsC1.RemoveAt(randomButton1Index);
-
-                switch (value)
-                {
-                    case 0:
-                        btC1R1.Text = randomWord.WordValue;
-                        break;
-                    case 1:
-                        btC1R2.Text = randomWord.WordValue;
-                        break;
-                    case 2:
-                        btC1R3.Text = randomWord.WordValue;
-                        break;
-                    case 3:
-                        btC1R4.Text = randomWord.WordValue;
-                        break;
-                    case 4:
-                        btC1R5.Text = randomWord.WordValue;
-                        break;
-                }
-
-                emptyValueButtons[value] = true;
-
-                int randomButton2Index = random.Next(emptyButtonsC2.Count);
-                int value2 = emptyButtonsC2[randomButton2Index];
-                emptyButtonsC2.RemoveAt(randomButton2Index);
-
-                switch (value2)
-                {
-                    case 0:
-                        btC2R1.Text = randomWord.Translate;
-                        break;
-                    case 1:
-                        btC2R2.Text = randomWord.Translate;
-                        break;
-                    case 2:
-                        btC2R3.Text = randomWord.Translate;
-                        break;
-                    case 3:
-                        btC2R4.Text = randomWord.Translate;
-                        break;
-                    case 4:
-                        btC2R5.Text = randomWord.Translate;
-                        break;
-                }
-
-                emptyTranslateButtons[value2] = true;
+                buttonsC1[i].Enabled = true;
+                buttonsC2[i].Enabled = true;
             }
-
         }
 
-        private void CheckEmptyButtons()
+        private void btClickValue(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(btC1R1.Text))
-                emptyValueButtons[0] = false;
-            if (string.IsNullOrEmpty(btC1R2.Text))
-                emptyValueButtons[1] = false;
-            if (string.IsNullOrEmpty(btC1R3.Text))
-                emptyValueButtons[2] = false;
-            if (string.IsNullOrEmpty(btC1R4.Text))
-                emptyValueButtons[3] = false;
-            if (string.IsNullOrEmpty(btC1R5.Text))
-                emptyValueButtons[4] = false;
-
-            if (string.IsNullOrEmpty(btC2R1.Text))
-                emptyTranslateButtons[0] = false;
-            if (string.IsNullOrEmpty(btC2R2.Text))
-                emptyTranslateButtons[1] = false;
-            if (string.IsNullOrEmpty(btC2R3.Text))
-                emptyTranslateButtons[2] = false;
-            if (string.IsNullOrEmpty(btC2R4.Text))
-                emptyTranslateButtons[3] = false;
-            if (string.IsNullOrEmpty(btC2R5.Text))
-                emptyTranslateButtons[4] = false;
-        }
-
-        private Word GetRandomWord()
-        {
-            int randomWordIndex = random.Next(words.Count);
-            return words[randomWordIndex];
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int randomWordIndex = random.Next(words.Count);
-            string randomWord = words[randomWordIndex].WordValue;
-
-            textBox1.Text = randomWord;
-
-
-            FillWordButtons();
-        }
-
-        private void btC1R1_Click(object sender, EventArgs e)
-        {
-            //emptyButton1[0] = false;
-            //btC1R1.Text = String.Empty;
-            //btC1R1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             Button clickedButton = (Button)sender;
-            clickedButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
 
+            foreach (Button item in buttonsC1)
+            {
+                item.BackColor = SystemColors.ControlLightLight;
+            }
+            clickedButton.BackColor = SystemColors.GradientInactiveCaption;
 
-            var name = Controls[$"{Name}"];
-            //var zzz = Controls.To
-
-            FillWordButtons();
+            selectedButtonC1 = (Button)clickedButton;
+            if (selectedButtonC2 != null)
+            {
+                CheckResult();
+            }
         }
 
-        private void btC1R2_Click(object sender, EventArgs e)
+   
+
+        private void btClickTranslate(object sender, EventArgs e)
         {
-            //emptyButton1[1] = false;
-            btC1R2.Text = String.Empty;
-            btC1R2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            Button clickedButton = (Button)sender;
 
-            FillWordButtons();
+            foreach (Button item in buttonsC2)
+            {
+                item.BackColor = SystemColors.ControlLightLight;
+            }
+            clickedButton.BackColor = SystemColors.GradientInactiveCaption;
+
+            selectedButtonC2 = (Button)clickedButton;
+            if (selectedButtonC1 != null)
+            {
+                CheckResult();
+            }
         }
 
-        private void btC1R3_Click(object sender, EventArgs e)
+
+        private void CheckResult()
         {
-            //emptyButton1[2] = false;
-            btC1R3.Text = String.Empty;
-            btC1R3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            int indexC1 = Array.IndexOf(buttonsC1, selectedButtonC1);
+            int indexC2 = Array.IndexOf(buttonsC2, selectedButtonC2);
 
-            FillWordButtons();
+            bool result = model.CheckWords(indexC1, indexC2);
+
+            if (result)
+            {
+                buttonsC1[indexC1].Enabled = false;
+                buttonsC2[indexC2].Enabled = false;
+
+                buttonsC1[indexC1].Text = string.Empty;
+                buttonsC2[indexC2].Text = string.Empty;
+
+                for (int i = 0; i < buttonsC1.Length; i++)
+                {
+                    buttonsC1[i].BackColor = SystemColors.ControlLightLight;
+                    buttonsC2[i].BackColor = SystemColors.ControlLightLight;
+                }
+
+                selectedButtonC1 = null;
+                selectedButtonC2 = null;
+
+                int countEmpty = buttonsC1.Where(x => string.IsNullOrEmpty(x.Text)).Count();
+
+                if (countEmpty == 3)
+                {
+                    UpdateButtons();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < buttonsC1.Length; i++)
+                {
+                    buttonsC1[i].BackColor = SystemColors.ControlLightLight;
+                    buttonsC2[i].BackColor = SystemColors.ControlLightLight;
+                }
+
+                selectedButtonC1 = null;
+                selectedButtonC2 = null;
+            }
         }
 
-        private void btC1R4_Click(object sender, EventArgs e)
-        {
-            //emptyButton1[3] = false;
-            btC1R4.Text = String.Empty;
-            btC1R4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
 
-            FillWordButtons();
-        }
 
-        private void btC1R5_Click(object sender, EventArgs e)
-        {
-            //emptyButton1[4] = false;
-            btC1R5.Text = String.Empty;
-            btC1R5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-
-            FillWordButtons();
-        }
     }
 }
